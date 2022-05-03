@@ -18,6 +18,9 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
+
+//CONTACTS
+
 Route::get('/contacts', function() {
     return 'GET ALL CONTACTS';
 });
@@ -26,7 +29,7 @@ Route::get('/contact/{id}', function($id) {
     return 'GET CONTACT BY ID-> '. $id;
 });
 
-Route::post('/contact', function() {
+Route::post('/contact', function(Request $request) {
     return 'CREATE CONTACT BY ID';
 });
 
