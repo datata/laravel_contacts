@@ -38,7 +38,17 @@ class ContactController extends Controller
 
     public function createContact(Request $request)
     {
-        return 'CREATE CONTACT BY ID';
+
+        $newContact = new Contact();
+        $newContact->name = $request->name;
+        $newContact->surname = $request->surname;
+        $newContact->email = $request->email;
+        $newContact->phone_number = $request->phone_number;
+        $newContact->id_user = $request->id_user;
+
+        $newContact->save();
+
+        return response()->json(["data" => $newContact, "success" => "Contact created"], 200);
     }
 
     public function updateContact(Request $request, $id)
