@@ -33,7 +33,7 @@ Route::group([
 
 //CONTACTS
 Route::group([
-    'middleware' => 'jwt.auth'
+    'middleware' => ['jwt.auth', 'isUserActive'],
 ], function () {
     Route::get('/contacts', [ContactController::class, 'getAllContacts']);
     Route::get('/contact/{id}', [ContactController::class, 'getContactById']);
