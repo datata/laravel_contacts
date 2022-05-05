@@ -13,6 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return  'Agenda app';
-});
+// Route::get('/', function () {
+//     return  'Agenda app';
+// });
