@@ -94,6 +94,17 @@ class ContactController extends Controller
         Log::info('Init update contact by id');
 
         try {
+            $validator = Validator::make($request->all(), [
+                'name' => 'string|max:100',
+                'surname' => 'string|max:100',
+                'phone_number' => 'string',
+                'email' => 'email',
+            ]);
+     
+            if ($validator->fails()) {
+                return response()->json($validator->errors(), 400);
+            }
+
             $contact = Contact::where('id', $id)->where('id_user', 1)->first();
 
             if(empty($contact)) {
