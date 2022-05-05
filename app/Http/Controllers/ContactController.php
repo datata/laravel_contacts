@@ -72,14 +72,17 @@ class ContactController extends Controller
                 return response()->json($validator->errors(), 400);
             }
     
-            $newContact = new Contact();
-            $newContact->name = $request->name;
-            $newContact->surname = $request->surname;
-            $newContact->email = $request->email;
-            $newContact->phone_number = $request->phone_number;
-            $newContact->id_user = $request->id_user;
+            // $newContact = new Contact();
+            // $newContact->name = $request->name;
+            // $newContact->surname = $request->surname;
+            // $newContact->email = $request->email;
+            // $newContact->phone_number = $request->phone_number;
+            // $newContact->id_user = $request->id_user;
     
-            $newContact->save();
+            // $newContact->save();
+
+            $contact = $request->all();
+            $newContact = Contact::create($contact);
     
             return response()->json(["data" => $newContact, "success" => "Contact created"], 200);
         } catch (\Throwable $th) {
