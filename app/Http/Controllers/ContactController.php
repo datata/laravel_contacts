@@ -21,7 +21,9 @@ class ContactController extends Controller
             //     ->get()
             //     ->toArray();
 
-            $contacts = Contact::where('id_user', 1)->get()->toArray();
+            $userId = auth()->user()->id;
+
+            $contacts = Contact::where('id_user', $userId)->get()->toArray();
 
             if(empty($contacts)) {
                 return response()->json(["success" => "There are not contacts"], 202);
@@ -42,7 +44,9 @@ class ContactController extends Controller
         Log::info('Init get contact by id');
 
         try {
-            $contact = Contact::where('id', $id)->where('id_user', 1)->first();
+            $userId = auth()->user()->id;
+
+            $contact = Contact::where('id', $id)->where('id_user', $userId)->first();
 
             if(empty($contact)) {
                 return response()->json(["error" => "Contact not exists"], 404);
@@ -71,18 +75,20 @@ class ContactController extends Controller
             if ($validator->fails()) {
                 return response()->json($validator->errors(), 400);
             }
-    
-            // $newContact = new Contact();
-            // $newContact->name = $request->name;
-            // $newContact->surname = $request->surname;
-            // $newContact->email = $request->email;
-            // $newContact->phone_number = $request->phone_number;
-            // $newContact->id_user = $request->id_user;
-    
-            // $newContact->save();
 
-            $contact = $request->all();
-            $newContact = Contact::create($contact);
+            $userId = auth()->user()->id;
+    
+            $newContact = new Contact();
+            $newContact->name = $request->name;
+            $newContact->surname = $request->surname;
+            $newContact->email = $request->email;
+            $newContact->phone_number = $request->phone_number;
+            $newContact->id_user = $userId;
+    
+            $newContact->save();
+
+            // $contact = $request->all();
+            // $newContact = Contact::create($contact);
     
             return response()->json(["data" => $newContact, "success" => "Contact created"], 200);
         } catch (\Throwable $th) {
@@ -108,7 +114,9 @@ class ContactController extends Controller
                 return response()->json($validator->errors(), 400);
             }
 
-            $contact = Contact::where('id', $id)->where('id_user', 1)->first();
+            $userId = auth()->user()->id;
+
+            $contact = Contact::where('id', $id)->where('id_user', $userId)->first();
 
             if(empty($contact)) {
                 return response()->json(["error" => "Contact not exists"], 404);
@@ -148,7 +156,9 @@ class ContactController extends Controller
         Log::info('Init delete contact by id');
 
         try {
-            $contact = Contact::where('id', $id)->where('id_user', 1)->first();
+            $userId = auth()->user()->id;
+
+            $contact = Contact::where('id', $id)->where('id_user', $userId)->first();
 
             if (empty($contact)) {
                 return response()->json([
