@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -23,7 +24,9 @@ class ContactController extends Controller
 
             $userId = auth()->user()->id;
 
-            $contacts = Contact::where('id_user', $userId)->get()->toArray();
+            // $contacts = Contact::where('id_user', $userId)->get()->toArray();
+
+            $contacts = User::find($userId)->contacts;
 
             if(empty($contacts)) {
                 return response()->json(["success" => "There are not contacts"], 202);

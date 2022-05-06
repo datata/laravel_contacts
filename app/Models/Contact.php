@@ -16,4 +16,9 @@ class Contact extends Model
         'email', 
         'id_user'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_user');
+    }
 }
